@@ -107,7 +107,7 @@ result.meshes.forEach(mesh => {
             new BABYLON.ExecuteCodeAction(
                 BABYLON.ActionManager.OnPointerOverTrigger,
                 function() {
-                    if(mesh.material) mesh.material.diffuseColor = new BABYLON.Color3(1,1,0);
+                    if(mesh.material) mesh.material.diffuseColor = new BABYLON.Color3(1,1,1);
                     tooltip.style.display = "block";
                     tooltip.textContent = meshInfo.label;
                 }
