@@ -70,31 +70,47 @@
 // ---- OPEN PROJECT ----
 function openProject(id) {
     const container = document.getElementById("project-container");
+    container.innerHTML = ''; // clear previous content
 
     if (id === "quieterrs") {
-        container.innerHTML = `
-            <!-- Scratch embed -->
-            <div class="embed-container scratch">
-                <iframe 
-                    src="https://scratch.mit.edu/projects/1101838389/embed"
-                    allowtransparency="true"
-                    frameborder="0"
-                    scrolling="no"
-                    allowfullscreen>
-                </iframe>
-            </div>
-
-            <!-- YouTube embed -->
-            <div class="embed-container youtube">
-                <iframe 
-                    src="https://www.youtube.com/embed/ogaDnvd_2Ug"
-                    title="(IMA) Final Project : Quiet Errs (gameplay)"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen>
-                </iframe>
-            </div>
+        // Create tab buttons
+        const tabs = document.createElement('div');
+        tabs.className = 'project-tabs';
+        tabs.innerHTML = `
+            <button class="tab-btn active" onclick="showTab(this, 'scratch')">Scratch</button>
+            <button class="tab-btn" onclick="showTab(this, 'youtube')">YouTube</button>
         `;
+        container.appendChild(tabs);
+
+        // Scratch iframe
+        const scratchDiv = document.createElement('div');
+        scratchDiv.id = 'scratch';
+        scratchDiv.className = 'embed-container tab-content active';
+        scratchDiv.innerHTML = `
+            <iframe 
+                src="https://scratch.mit.edu/projects/1101838389/embed"
+                allowtransparency="true"
+                frameborder="0"
+                scrolling="no"
+                allowfullscreen>
+            </iframe>
+        `;
+        container.appendChild(scratchDiv);
+
+        // YouTube iframe
+        const youtubeDiv = document.createElement('div');
+        youtubeDiv.id = 'youtube';
+        youtubeDiv.className = 'embed-container tab-content';
+        youtubeDiv.innerHTML = `
+            <iframe 
+                src="https://www.youtube.com/embed/ogaDnvd_2Ug"
+                title="(IMA) Final Project : Quiet Errs (gameplay)"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+        `;
+        container.appendChild(youtubeDiv);
     }
     else {
         const embeds = {
@@ -104,6 +120,22 @@ function openProject(id) {
         };
         container.innerHTML = embeds[id] || `<p>Project content not available.</p>`;
     }
+}
+
+// Tab switch function
+function showTab(button, tabId) {
+    const container = document.getElementById("project-container");
+    const tabs = container.getElementsByClassName("tab-btn");
+    const contents = container.getElementsByClassName("tab-content");
+
+    // Remove active from all buttons
+    Array.from(tabs).forEach(btn => btn.classList.remove("active"));
+    button.classList.add("active");
+
+    // Hide all tab content
+    Array.from(contents).forEach(c => c.classList.remove("active"));
+    // Show selected
+    document.getElementById(tabId).classList.add("active");
 }
 
 // ---- CHRONOLOGICAL FILTER ----
