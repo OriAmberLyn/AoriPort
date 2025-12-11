@@ -3,17 +3,63 @@ html, body {
     padding: 0;
 }
 
+/* Hide content sections */
+.hidden {
+    display: none;
+}
+
+/* --- Grid of 6 buttons --- */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.project-btn {
+    background: #111;
+    color: white;
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: 0.2s;
+}
+
+.project-btn:hover {
+    background: #222;
+    border-color: #555;
+}
+
+.project-btn img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Embed responsive frame */
 .embed-container {
     position: relative;
     width: 100%;
-    padding-top: 60%; /* adjust to your aspect ratio */
+    padding-top: 56%;
+    margin-bottom: 20px;
 }
 
 .embed-container iframe {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     width: 100%;
     height: 100%;
     border: none;
 }
+
+/* Section spacing */
+.project-content {
+    margin-top: 20px;
+}
+
