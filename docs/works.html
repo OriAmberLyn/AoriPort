@@ -59,14 +59,15 @@
 
 </div>
 
-<!-- DISPLAY WINDOW -->
-<div id="project-container" class="embed-container">
+<!-- EMBED AREA (RIGHT OF SIDEBAR) -->
+<div id="project-container">
     <p>Select a project.</p>
 </div>
 
 <a href="index.html">Back to Scene</a>
 
 <script>
+// ---- OPEN PROJECT ----
 function openProject(id) {
     const container = document.getElementById("project-container");
 
@@ -105,8 +106,7 @@ function openProject(id) {
     }
 }
 
-
-// Sort by date
+// ---- CHRONOLOGICAL FILTER ----
 function applyFilter() {
     const list = document.getElementById("project-list");
     const items = Array.from(list.getElementsByClassName("project-item"));
@@ -121,9 +121,10 @@ function applyFilter() {
     items.forEach(item => list.appendChild(item));
 }
 
-// Apply filter on load
+// Apply filter on page load
 applyFilter();
 </script>
 
 </body>
 </html>
+
