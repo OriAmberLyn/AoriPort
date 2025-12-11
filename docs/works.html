@@ -84,4 +84,24 @@
 <a href="index.html">Back to Scene</a>
 
 </body>
+    <script>
+const buttons = document.querySelectorAll(".project-btn");
+const sections = document.querySelectorAll(".project-content");
+
+buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        
+        // Hide all sections first
+        sections.forEach(sec => sec.classList.add("hidden"));
+
+        // Show clicked section
+        const target = document.getElementById(btn.dataset.target);
+        target.classList.remove("hidden");
+
+        // Scroll to content
+        target.scrollIntoView({ behavior: "smooth" });
+    });
+});
+</script>
+
 </html>
