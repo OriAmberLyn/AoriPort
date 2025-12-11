@@ -1,107 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Works</title>
-    <link rel="stylesheet" href="css/works.css">
+    <link rel="stylesheet" href="css/works.css" />
 </head>
 <body>
-    <h1>Works</h1>
-<p>Select a project below:</p>
 
-<div class="project-grid">
+<h1>My Works</h1>
 
-    <!-- Project 1 -->
-    <button class="project-btn" data-target="project1">
-        <img src="thumbnail1.png" alt="">
-        <span>p5.js Sketch</span>
-    </button>
+<!-- FILTER DROPDOWN -->
+<div class="filter-bar">
+    <label for="filter">Sort by:</label>
+    <select id="filter" onchange="applyFilter()">
+        <option value="newest">Newest → Oldest</option>
+        <option value="oldest">Oldest → Newest</option>
+    </select>
+</div>
 
-    <!-- Project 2 -->
-    <button class="project-btn" data-target="project2">
-        <img src="thumbnail2.png" alt="">
+<!-- SCROLLABLE PROJECT LIST -->
+<div id="project-list" class="project-list">
+    <!-- These items will be sorted automatically -->
+    <div class="project-item" data-date="2025-01-12" onclick="openProject('p5')">
+        <span>P5.js Sketch</span>
+        <span class="date">2025</span>
+    </div>
+
+    <div class="project-item" data-date="2024-11-02" onclick="openProject('yt')">
         <span>YouTube Video</span>
-    </button>
+        <span class="date">2024</span>
+    </div>
 
-    <!-- Project 3 -->
-    <button class="project-btn" data-target="project3">
-        <img src="thumbnail3.png" alt="">
-        <span>itch.io Game</span>
-    </button>
+    <div class="project-item" data-date="2024-05-19" onclick="openProject('itch')">
+        <span>Itch.io Game</span>
+        <span class="date">2024</span>
+    </div>
 
-    <!-- Project 4 -->
-    <button class="project-btn" data-target="project4">
-        <img src="thumbnail4.png" alt="">
-        <span>Project 4</span>
-    </button>
+    <div class="project-item" data-date="2023-09-01" onclick="openProject('site')">
+        <span>Website Project</span>
+        <span class="date">2023</span>
+    </div>
 
-    <!-- Project 5 -->
-    <button class="project-btn" data-target="project5">
-        <img src="thumbnail5.png" alt="">
+    <div class="project-item" data-date="2022-12-22" onclick="openProject('other1')">
         <span>Project 5</span>
-    </button>
+        <span class="date">2022</span>
+    </div>
 
-    <!-- Project 6 -->
-    <button classüsü="project-btn" data-target="project6">
-        <img src="thumbnail6.png" alt="">
+    <div class="project-item" data-date="2022-03-05" onclick="openProject('other2')">
         <span>Project 6</span>
-    </button>
-
-</div>
-
-<!-- ---------------- CONTENT SECTIONS ---------------- -->
-
-<div class="project-content hidden" id="project1">
-    <div class="embed-container">
-        <iframe src="https://editor.p5js.org/Aoriki/full/9ilwBktf0"></iframe>
+        <span class="date">2022</span>
     </div>
 </div>
 
-<div class="project-content hidden" id="project2">
-    <div class="embed-container">
-     <!--   <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe> -->
-    </div>
-</div>
-
-<div class="project-content hidden" id="project3">
-    <div class="embed-container">
-       <!-- <iframe src="https://itch.io/embed/yourgame"></iframe> -->
-    </div>
-</div>
-
-<div class="project-content hidden" id="project4">
-   <p>Another project goes here.</p> 
-</div>
-
-<div class="project-content hidden" id="project5">
-    <p>Another project goes here.</p> 
-</div>
-
-<div class="project-content hidden" id="project6">
-    <p>Another project goes here.</p> 
+<!-- DISPLAY AREA -->
+<div id="project-container" class="embed-container">
+    <p>Select a project from the left.</p>
 </div>
 
 <a href="index.html">Back to Scene</a>
 
+<script>
+// ---- IFRAME LOADING ----
+function openProject(type) {
+    const container = document.getElementById("project-container");
 
-      <script>
-const buttons = document.querySelectorAll(".project-btn");
-const sections = document.querySelectorAll(".project-content");
+    const embeds = {
+        p5: `<iframe src="https://editor.p5js.org/Aoriki/full/NQvpKe2Sn"></iframe>`,
+        yt: `<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>`,
+        itch: `<iframe src="https://itch.io/embed-upload/123456"></iframe>`,
+        site: `<iframe src="https://example.com"></iframe>`,
+        other1: `<p>Project 5 content goes here.</p>`,
+        other2: `<p>Project 6 content goes here.</p>`
+    };
 
-buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        
-        // Hide all sections first
-        sections.forEach(sec => sec.classList.add("hidden"));
+    container.innerHTML = embeds[type];
+}
 
-        // Show clicked section
-        const target = document.getElementById(btn.dataset.target);
-        target.classList.remove("hidden");
+// ---- CHRONOLOGICAL SORT ----
+function applyFilter() {
+    const list = document.getElementById("project-list");
+    const items = Array.from(list.getElementsByClassName("project-item"));
+    const filter = document.getElementById("filter").value;
 
-        // Scroll to content
-        target.scrollIntoView({ behavior: "smooth" });
+    items.sort((a, b) => {
+        const dateA = new Date(a.dataset.date);
+        const dateB = new Date(b.dataset.date);
+        return filter === "newest" ? dateB - dateA : dateA - dateB;
     });
-});
+
+    items.forEach(item => list.appendChild(item));
+}
+
+// Run filter on load
+applyFilter();
 </script>
+
 </body>
 </html>
