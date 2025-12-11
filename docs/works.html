@@ -71,11 +71,11 @@ function openProject(id) {
     const container = document.getElementById("project-container");
 
     if (id === "quieterrs") {
-        // Multiple embeds (Scratch + YouTube)
         container.innerHTML = `
-            <div class="embed-container">
+            <!-- Scratch embed -->
+            <div class="embed-container scratch">
                 <iframe 
-                    src="https://scratch.mit.edu/projects/1101838389/embed" 
+                    src="https://scratch.mit.edu/projects/1101838389/embed"
                     allowtransparency="true"
                     frameborder="0"
                     scrolling="no"
@@ -83,7 +83,8 @@ function openProject(id) {
                 </iframe>
             </div>
 
-            <div class="embed-container">
+            <!-- YouTube embed -->
+            <div class="embed-container youtube">
                 <iframe 
                     src="https://www.youtube.com/embed/ogaDnvd_2Ug"
                     title="(IMA) Final Project : Quiet Errs (gameplay)"
@@ -93,8 +94,8 @@ function openProject(id) {
                 </iframe>
             </div>
         `;
-    } else {
-        // Other single embeds
+    }
+    else {
         const embeds = {
             p5: `<div class="embed-container"><iframe src="https://editor.p5js.org/Aoriki/full/NQvpKe2Sn"></iframe></div>`,
             itch: `<div class="embed-container"><iframe src="https://itch.io/embed-upload/123456"></iframe></div>`,
@@ -103,6 +104,7 @@ function openProject(id) {
         container.innerHTML = embeds[id] || `<p>Project content not available.</p>`;
     }
 }
+
 
 // Sort by date
 function applyFilter() {
