@@ -62,24 +62,27 @@ html, body {
     font-size: 0.9em;
 }
 
-/* RESPONSIVE EMBED AREA */
-.embed-container {
-    position: relative;
-    width: calc(100% - 300px); /* remaining space next to project list */
-    float: left;
-    background: #000;
-    border-radius: 10px;
-    padding-top: 56%; /* default 16:9 aspect ratio */
-    margin-bottom: 20px;
-}
-
+/* Make all iframes responsive */
 .embed-container iframe {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100% !important;   /* override fixed widths */
+    height: 100% !important;  /* override fixed heights */
     border: none;
 }
+
+/* Optional: smaller Scratch container */
+.embed-container.scratch {
+    padding-top: 48%;  /* adjust for Scratch aspect ratio */
+}
+
+/* YouTube & P5.js keep 16:9 */
+.embed-container.youtube,
+.embed-container {
+    padding-top: 56%; /* 16:9 ratio */
+}
+
 
 /* OPTIONAL: For different aspect ratio (Scratch smaller) */
 .embed-container.scratch {
