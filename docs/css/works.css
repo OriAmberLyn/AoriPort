@@ -112,3 +112,29 @@ html, body {
     margin-top: 20px;
 }
 
+/* Image thumbnails in list */
+.project-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    background: #292929;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.project-item:hover {
+    background: #444;
+}
+
+.project-item .thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.project-item .info {
+    display: flex;
+    flex-direction: column;
+}
