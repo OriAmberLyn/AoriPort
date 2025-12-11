@@ -21,7 +21,7 @@
 <!-- SCROLLABLE IMAGE PROJECT LIST -->
 <div id="project-list" class="project-list">
 
-    <!-- Example 1 -->
+    <!-- Project 1: P5.js -->
     <div class="project-item" data-date="2025-01-12" onclick="openProject('p5')">
         <img src="img/p5thumb.jpg" class="thumb">
         <div class="info">
@@ -30,16 +30,16 @@
         </div>
     </div>
 
-    <!-- Example 2 -->
-    <div class="project-item" data-date="2024-11-02" onclick="openProject('yt')">
+    <!-- Project 2: Scratch + YouTube -->
+    <div class="project-item" data-date="2024-11-02" onclick="openProject('quieterrs')">
         <img src="img/ytthumb.jpg" class="thumb">
         <div class="info">
-            <strong>YouTube Video</strong>
+            <strong>Quiet Errs (Scratch + YouTube)</strong>
             <span class="date">2024</span>
         </div>
     </div>
 
-    <!-- Example 3 -->
+    <!-- Project 3: Itch.io -->
     <div class="project-item" data-date="2024-05-19" onclick="openProject('itch')">
         <img src="img/itchthumb.jpg" class="thumb">
         <div class="info">
@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <!-- Example 4 -->
+    <!-- Project 4: Website -->
     <div class="project-item" data-date="2023-08-01" onclick="openProject('site')">
         <img src="img/sitethumb.jpg" class="thumb">
         <div class="info">
@@ -67,23 +67,44 @@
 <a href="index.html">Back to Scene</a>
 
 <script>
-// ---- IFRAME LOADING ----
-function openProject(type) {
+function openProject(id) {
     const container = document.getElementById("project-container");
 
-    const embeds = {
-        p5: `<iframe src="https://editor.p5js.org/Aoriki/full/NQvpKe2Sn"></iframe>`,
-        yt: `<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>`,
-        itch: `<iframe src="https://itch.io/embed-upload/123456"></iframe>`,
-        site: `<iframe src="https://example.com"></iframe>`,
-        other1: `<p>Project 5 content goes here.</p>`,
-        other2: `<p>Project 6 content goes here.</p>`
-    };
+    if (id === "quieterrs") {
+        // Multiple embeds (Scratch + YouTube)
+        container.innerHTML = `
+            <div class="embed-container">
+                <iframe 
+                    src="https://scratch.mit.edu/projects/1101838389/embed" 
+                    allowtransparency="true"
+                    frameborder="0"
+                    scrolling="no"
+                    allowfullscreen>
+                </iframe>
+            </div>
 
-    container.innerHTML = embeds[type];
+            <div class="embed-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/ogaDnvd_2Ug"
+                    title="(IMA) Final Project : Quiet Errs (gameplay)"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        `;
+    } else {
+        // Other single embeds
+        const embeds = {
+            p5: `<div class="embed-container"><iframe src="https://editor.p5js.org/Aoriki/full/NQvpKe2Sn"></iframe></div>`,
+            itch: `<div class="embed-container"><iframe src="https://itch.io/embed-upload/123456"></iframe></div>`,
+            site: `<div class="embed-container"><iframe src="https://example.com"></iframe></div>`
+        };
+        container.innerHTML = embeds[id] || `<p>Project content not available.</p>`;
+    }
 }
 
-// ---- CHRONOLOGICAL SORT ----
+// Sort by date
 function applyFilter() {
     const list = document.getElementById("project-list");
     const items = Array.from(list.getElementsByClassName("project-item"));
@@ -98,7 +119,7 @@ function applyFilter() {
     items.forEach(item => list.appendChild(item));
 }
 
-// Run filter on load
+// Apply filter on load
 applyFilter();
 </script>
 
