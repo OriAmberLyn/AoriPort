@@ -122,8 +122,3 @@ html, body {
 .project-content {
     margin-top: 20px;
 }
-
-.tab-content.active {
-    display: block;
-}
-
