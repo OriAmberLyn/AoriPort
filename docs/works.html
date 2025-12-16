@@ -106,6 +106,7 @@ function switchTab(tabId) {
 
 function openProject(id) {
     const container = document.getElementById("project-container");
+
     if (id === "quieterrs") {
         container.innerHTML = `
             <div class="embed-container">
@@ -117,14 +118,20 @@ function openProject(id) {
         `;
         return;
     }
+
     const embeds = {
         p5: `<div class="embed-container"><iframe src="https://editor.p5js.org/Aoriki/full/NQvpKe2Sn"></iframe></div>`,
-        itch: `<div class="embed-container"><iframe src="https://itch.io/embed-upload/123456"></iframe></div>`,
+
+        // Updated Itch.io embed
+        itch: `<div class="embed-container">
+                   <iframe src="https://itch.io/embed-upload/13057329?color=2f2f59" frameborder="0" allowfullscreen></iframe>
+               </div>`,
+
         site: `<div class="embed-container"><iframe src="https://example.com"></iframe></div>`
     };
+
     container.innerHTML = embeds[id] || "<p>Project not found.</p>";
 }
-
 function applyFilter() {
     const list = document.getElementById("project-list");
     const items = Array.from(list.getElementsByClassName("project-item"));
