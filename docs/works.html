@@ -1,132 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Works</title>
-    <link rel="stylesheet" href="css/works.css" />
+<meta charset="UTF-8" />
+<title>Works</title>
+<link rel="stylesheet" href="works.css" />
 </head>
+
 <body>
 
-<h1>My Works</h1>
+<h1 class="title">MY WORKS</h1>
 
-<!-- FILTER -->
-<div class="filter-bar">
-    <label for="filter">Sort by:</label>
-    <select id="filter" onchange="applyFilter()">
-        <option value="newest">Newest → Oldest</option>
-        <option value="oldest">Oldest → Newest</option>
-    </select>
-</div>
+<div class="workspace">
 
-<!-- MAIN LAYOUT -->
-<div class="works-layout">
+    <!-- TABS -->
+    <div class="tabs">
+        <button class="tab active" onclick="switchTab('interactive', this)">Interactive</button>
+        <button class="tab" onclick="switchTab('static', this)">Static</button>
+    </div>
 
-    <!-- LEFT: FILE TABS -->
-    <div id="project-list" class="project-list">
+    <!-- CONTENT AREA -->
+    <div class="content">
 
-        <div class="project-item active" data-date="2025-01-12" onclick="openProject(this,'p5')">
-            <img src="img/p5thumb.jpg" class="thumb">
-            <div class="info">
-                <strong>P5.js Sketch</strong>
-                <span class="date">2025</span>
+        <!-- LEFT: PROJECT LIST -->
+        <div class="project-list" id="interactive">
+            <div class="project-item" onclick="openProject('scratch')">
+                <span>Scratch Game</span>
+                <span class="year">2024</span>
+            </div>
+
+            <div class="project-item" onclick="openProject('yt')">
+                <span>YouTube Gameplay</span>
+                <span class="year">2024</span>
             </div>
         </div>
 
-        <div class="project-item" data-date="2024-11-02" onclick="openProject(this,'quieterrs')">
-            <img src="img/quieterrs-thumb.jpg" class="thumb">
-            <div class="info">
-                <strong>Quiet Errs</strong>
-                <span class="date">2024</span>
+        <div class="project-list hidden" id="static">
+            <div class="project-item" onclick="openProject('image')">
+                <span>Image Project</span>
+                <span class="year">2023</span>
             </div>
         </div>
 
-        <div class="project-item" data-date="2024-05-19" onclick="openProject(this,'itch')">
-            <img src="img/itchthumb.jpg" class="thumb">
-            <div class="info">
-                <strong>Itch.io Game</strong>
-                <span class="date">2024</span>
-            </div>
-        </div>
-
-        <div class="project-item" data-date="2023-08-01" onclick="openProject(this,'site')">
-            <img src="img/sitethumb.jpg" class="thumb">
-            <div class="info">
-                <strong>Website Project</strong>
-                <span class="date">2023</span>
-            </div>
+        <!-- RIGHT: EMBED PANEL -->
+        <div id="project-container" class="embed-container">
+            <p class="placeholder">Select a project</p>
         </div>
 
     </div>
-
-    <!-- RIGHT: CONTENT PANEL -->
-    <div id="project-container" class="content-panel">
-        <div class="embed-container">
-            <iframe src="https://editor.p5js.org/Aoriki/full/NQvpKe2Sn"></iframe>
-        </div>
-    </div>
-
 </div>
-
-<a href="index.html">← Back to Scene</a>
 
 <script>
-// ---------- OPEN PROJECT + ACTIVE TAB ----------
-function openProject(tab, id) {
+function switchTab(tabId, btn) {
+    document.querySelectorAll('.project-list').forEach(p => p.classList.add('hidden'));
+    document.getElementById(tabId).classList.remove('hidden');
+
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+}
+
+function openProject(type) {
     const container = document.getElementById("project-container");
-    const tabs = document.querySelectorAll(".project-item");
-
-    tabs.forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
-
-    if (id === "quieterrs") {
-        container.innerHTML = `
-            <div class="embed-container">
-                <iframe src="https://scratch.mit.edu/projects/1101838389/embed"
-                        allowtransparency="true"
-                        scrolling="no"
-                        allowfullscreen></iframe>
-            </div>
-
-            <div class="embed-container">
-                <iframe src="https://www.youtube.com/embed/ogaDnvd_2Ug"
-                        title="Quiet Errs Gameplay"
-                        allowfullscreen></iframe>
-            </div>
-        `;
-        return;
-    }
 
     const embeds = {
-        p5: `<div class="embed-container">
-                <iframe src="https://editor.p5js.org/Aoriki/full/NQvpKe2Sn"></iframe>
-             </div>`,
-        itch: `<div class="embed-container">
-                <iframe src="https://itch.io/embed-upload/123456"></iframe>
-               </div>`,
-        site: `<div class="embed-container">
-                <iframe src="https://example.com"></iframe>
-               </div>`
+        scratch: `
+        <iframe 
+            src="https://scratch.mit.edu/projects/1101838389/embed"
+            allowtransparency="true"
+            frameborder="0"
+            scrolling="no"
+            allowfullscreen>
+        </iframe>`,
+
+        yt: `
+        <iframe 
+            src="https://www.youtube.com/embed/ogaDnvd_2Ug"
+            title="YouTube video"
+            frameborder="0"
+            allowfullscreen>
+        </iframe>`,
+
+        image: `<p style="color:#7fdcff">Static image gallery goes here</p>`
     };
 
-    container.innerHTML = embeds[id] || "<p>Project not found.</p>";
+    container.innerHTML = embeds[type];
 }
-
-// ---------- SORT ----------
-function applyFilter() {
-    const list = document.getElementById("project-list");
-    const items = Array.from(list.children);
-    const order = document.getElementById("filter").value;
-
-    items.sort((a, b) => {
-        return order === "newest"
-            ? new Date(b.dataset.date) - new Date(a.dataset.date)
-            : new Date(a.dataset.date) - new Date(b.dataset.date);
-    });
-
-    items.forEach(item => list.appendChild(item));
-}
-
-applyFilter();
 </script>
 
 </body>
