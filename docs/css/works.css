@@ -1,106 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
 /* RESET */
 html, body {
     margin: 0;
     padding: 0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: radial-gradient(circle at top, #0a1424, #050a14);
-    color: #cfe6ff;
+    background: #050505;
+    color: #00ff9c;
+    font-family: 'Share Tech Mono', monospace;
 }
 
 /* HEADER */
 h1 {
     margin: 20px;
-    color: #7cc7ff;
-    text-shadow: 0 0 6px rgba(124, 199, 255, 0.3);
+    letter-spacing: 2px;
 }
 
-/* FILTER */
-.filter-bar {
-    margin: 0 20px 20px;
+/* FOLDER TABS */
+.folder-tabs {
+    display: flex;
+    margin: 0 20px;
+    border-bottom: 2px solid #00ff9c;
 }
 
-.filter-bar select {
-    background: #0b1b33;
-    color: #7cc7ff;
-    border: 1px solid #1f3b66;
-    padding: 4px 6px;
+.folder-tab {
+    background: #0a0a0a;
+    color: #00ff9c;
+    border: 2px solid #00ff9c;
+    border-bottom: none;
+    padding: 10px 20px;
+    margin-right: 6px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    position: relative;
 }
 
-/* MAIN FLEX LAYOUT */
+.folder-tab.active {
+    background: #111;
+    box-shadow: 0 0 10px #00ff9c;
+}
+
+/* FOLDER CONTENT */
+.folder-content {
+    display: none;
+    padding: 20px;
+}
+
+.folder-content.active {
+    display: block;
+}
+
+/* INTERACTIVE LAYOUT */
 .works-layout {
     display: flex;
     gap: 20px;
-    padding: 0 20px;
-    align-items: flex-start;
 }
 
-/* LEFT SIDEBAR */
+/* PROJECT LIST */
 .project-list {
     width: 260px;
     max-height: 70vh;
     overflow-y: auto;
-    background: linear-gradient(180deg, #0b1b33, #050d1d);
+    background: #0c0c0c;
+    border: 1px solid #00ff9c;
     padding: 10px;
-    border-radius: 12px;
-    border: 1px solid #1f3b66;
-    box-shadow: 0 0 15px rgba(64, 140, 255, 0.15);
 }
 
 /* PROJECT ITEM */
 .project-item {
     display: flex;
     gap: 10px;
-    align-items: center;
-    padding: 10px;
-    background: linear-gradient(135deg, #10254a, #0b1b33);
-    border-radius: 10px;
+    padding: 8px;
+    border: 1px solid #003322;
+    margin-bottom: 8px;
     cursor: pointer;
-    transition: 0.2s;
-    margin-bottom: 10px;
-    border: 1px solid #1f3b66;
 }
 
 .project-item:hover {
-    background: linear-gradient(135deg, #143060, #10254a);
-    box-shadow: 0 0 10px rgba(124, 199, 255, 0.25);
+    background: #003322;
 }
 
-/* THUMBNAIL */
 .thumb {
     width: 60px;
     height: 60px;
     object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #2d5fa3;
 }
 
-/* INFO TEXT */
-.info strong {
-    color: #9ad5ff;
-}
-
-.date {
-    font-size: 0.8em;
-    opacity: 0.75;
-}
-
-/* RIGHT CONTENT */
-#project-container {
+/* TERMINAL WINDOW */
+.terminal-window {
     flex: 1;
+    background: #000;
+    border: 2px solid #00ff9c;
+    padding: 10px;
+    min-height: 300px;
 }
 
-/* RESPONSIVE EMBEDS */
+/* EMBEDS */
 .embed-container {
     position: relative;
     width: 100%;
-    padding-top: 56.25%;
+    padding-top: 56%;
     margin-bottom: 20px;
-    background: radial-gradient(circle at center, #0b1b33, #020814);
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid #1f3b66;
-    box-shadow: inset 0 0 20px rgba(124, 199, 255, 0.08),
-                0 0 20px rgba(64, 140, 255, 0.15);
 }
 
 .embed-container iframe {
@@ -111,27 +110,23 @@ h1 {
     border: none;
 }
 
-/* LINKS */
-a {
+/* STATIC GALLERY */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+.gallery-item img,
+.gallery-item video {
+    width: 100%;
+    border: 2px solid #00ff9c;
+}
+
+/* BACK LINK */
+.back-link {
     display: block;
     margin: 20px;
-    color: #7cc7ff;
+    color: #00ff9c;
     text-decoration: none;
-}
-
-a:hover {
-    color: #b5e5ff;
-    text-shadow: 0 0 6px rgba(124, 199, 255, 0.4);
-}
-
-/* SCROLLBAR (WebKit) */
-.project-list::-webkit-scrollbar {
-    width: 6px;
-}
-.project-list::-webkit-scrollbar-thumb {
-    background: #2d5fa3;
-    border-radius: 10px;
-}
-.project-list::-webkit-scrollbar-track {
-    background: #050d1d;
 }
