@@ -196,7 +196,7 @@ a:hover {
 a.back-btn {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    left: 20px;
     background: #07122b;
     color: #66b3ff;
     border: 2px solid #3399ff;
