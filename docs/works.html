@@ -1,131 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Works Archive</title>
-<link rel="stylesheet" href="css/works.css">
+    <meta charset="UTF-8" />
+    <title>Works</title>
+    <link rel="stylesheet" href="css/works.css" />
 </head>
 <body>
 
-<h1>ARCHIVE://WORKS</h1>
+<h1>My Works</h1>
 
-<!-- TOP FOLDER TABS -->
-<div class="folder-tabs">
-    <button class="folder-tab active" onclick="switchFolder('interactive')">
-        INTERACTIVE
-    </button>
-    <button class="folder-tab" onclick="switchFolder('static')">
-        STATIC
-    </button>
+<!-- FILTER -->
+<div class="filter-bar">
+    <label for="filter">Sort by:</label>
+    <select id="filter" onchange="applyFilter()">
+        <option value="newest">Newest → Oldest</option>
+        <option value="oldest">Oldest → Newest</option>
+    </select>
 </div>
 
-<!-- INTERACTIVE FOLDER -->
-<section id="interactive" class="folder-content active">
+<!-- MAIN LAYOUT -->
+<div class="works-layout">
 
-    <div class="works-layout">
+    <!-- LEFT: FILE TABS -->
+    <div id="project-list" class="project-list">
 
-        <!-- LEFT PROJECT LIST -->
-        <div id="project-list" class="project-list">
-
-            <div class="project-item" data-date="2025-01-12" onclick="openProject('p5')">
-                <img src="img/p5thumb.jpg" class="thumb">
-                <div class="info">
-                    <strong>P5.JS</strong>
-                    <span class="date">2025</span>
-                </div>
+        <div class="project-item active" data-date="2025-01-12" onclick="openProject(this,'p5')">
+            <img src="img/p5thumb.jpg" class="thumb">
+            <div class="info">
+                <strong>P5.js Sketch</strong>
+                <span class="date">2025</span>
             </div>
-
-            <div class="project-item" data-date="2024-11-02" onclick="openProject('quieterrs')">
-                <img src="img/quieterrs-thumb.jpg" class="thumb">
-                <div class="info">
-                    <strong>QUIET ERRS</strong>
-                    <span class="date">2024</span>
-                </div>
-            </div>
-
-            <div class="project-item" data-date="2024-05-19" onclick="openProject('itch')">
-                <img src="img/itchthumb.jpg" class="thumb">
-                <div class="info">
-                    <strong>ITCH.IO</strong>
-                    <span class="date">2024</span>
-                </div>
-            </div>
-
         </div>
 
-        <!-- RIGHT EMBED WINDOW -->
-        <div id="project-container" class="terminal-window">
-            <p>SELECT PROJECT_</p>
+        <div class="project-item" data-date="2024-11-02" onclick="openProject(this,'quieterrs')">
+            <img src="img/quieterrs-thumb.jpg" class="thumb">
+            <div class="info">
+                <strong>Quiet Errs</strong>
+                <span class="date">2024</span>
+            </div>
+        </div>
+
+        <div class="project-item" data-date="2024-05-19" onclick="openProject(this,'itch')">
+            <img src="img/itchthumb.jpg" class="thumb">
+            <div class="info">
+                <strong>Itch.io Game</strong>
+                <span class="date">2024</span>
+            </div>
+        </div>
+
+        <div class="project-item" data-date="2023-08-01" onclick="openProject(this,'site')">
+            <img src="img/sitethumb.jpg" class="thumb">
+            <div class="info">
+                <strong>Website Project</strong>
+                <span class="date">2023</span>
+            </div>
         </div>
 
     </div>
 
-</section>
-
-<!-- STATIC FOLDER -->
-<section id="static" class="folder-content">
-
-    <div class="gallery">
-
-        <div class="gallery-item">
-            <img src="img/static1.jpg">
+    <!-- RIGHT: CONTENT PANEL -->
+    <div id="project-container" class="content-panel">
+        <div class="embed-container">
+            <iframe src="https://editor.p5js.org/Aoriki/full/NQvpKe2Sn"></iframe>
         </div>
-
-        <div class="gallery-item">
-            <img src="img/static2.jpg">
-        </div>
-
-        <div class="gallery-item">
-            <video src="video/loop.mp4" autoplay muted loop></video>
-        </div>
-
-        <div class="gallery-item">
-            <img src="img/static3.jpg">
-        </div>
-
     </div>
 
-</section>
+</div>
 
-<a href="index.html" class="back-link">← BACK</a>
+<a href="index.html">← Back to Scene</a>
 
 <script>
-/* SWITCH FOLDER TABS */
-function switchFolder(id) {
-    document.querySelectorAll('.folder-content').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.folder-tab').forEach(t => t.classList.remove('active'));
+// ---------- OPEN PROJECT + ACTIVE TAB ----------
+function openProject(tab, id) {
+    const container = document.getElementById("project-container");
+    const tabs = document.querySelectorAll(".project-item");
 
-    document.getElementById(id).classList.add('active');
-    event.target.classList.add('active');
-}
-
-/* LOAD PROJECT EMBEDS */
-function openProject(id) {
-    const c = document.getElementById("project-container");
+    tabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
 
     if (id === "quieterrs") {
-        c.innerHTML = `
+        container.innerHTML = `
             <div class="embed-container">
-                <iframe src="https://scratch.mit.edu/projects/1101838389/embed"></iframe>
+                <iframe src="https://scratch.mit.edu/projects/1101838389/embed"
+                        allowtransparency="true"
+                        scrolling="no"
+                        allowfullscreen></iframe>
             </div>
+
             <div class="embed-container">
-                <iframe src="https://www.youtube.com/embed/ogaDnvd_2Ug"></iframe>
+                <iframe src="https://www.youtube.com/embed/ogaDnvd_2Ug"
+                        title="Quiet Errs Gameplay"
+                        allowfullscreen></iframe>
             </div>
         `;
         return;
     }
 
     const embeds = {
-        p5: `<div class="embed-container"><iframe src="https://editor.p5js.org/Aoriki/full/NQvpKe2Sn"></iframe></div>`,
-        itch: `<div class="embed-container"><iframe src="https://itch.io/embed-upload/123456"></iframe></div>`
+        p5: `<div class="embed-container">
+                <iframe src="https://editor.p5js.org/Aoriki/full/NQvpKe2Sn"></iframe>
+             </div>`,
+        itch: `<div class="embed-container">
+                <iframe src="https://itch.io/embed-upload/123456"></iframe>
+               </div>`,
+        site: `<div class="embed-container">
+                <iframe src="https://example.com"></iframe>
+               </div>`
     };
 
-    c.innerHTML = embeds[id] || `<p>NO DATA</p>`;
+    container.innerHTML = embeds[id] || "<p>Project not found.</p>";
 }
+
+// ---------- SORT ----------
+function applyFilter() {
+    const list = document.getElementById("project-list");
+    const items = Array.from(list.children);
+    const order = document.getElementById("filter").value;
+
+    items.sort((a, b) => {
+        return order === "newest"
+            ? new Date(b.dataset.date) - new Date(a.dataset.date)
+            : new Date(a.dataset.date) - new Date(b.dataset.date);
+    });
+
+    items.forEach(item => list.appendChild(item));
+}
+
+applyFilter();
 </script>
 
 </body>
 </html>
+
 
 
 </body>
