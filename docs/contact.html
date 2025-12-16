@@ -20,16 +20,32 @@
         </a>
 
         <!-- Email -->
-        <a href="mailto:aoriki.contact@gmail.com" class="contact-icon">
+        <div class="contact-icon email-icon" onclick="copyEmail()">
             <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg" alt="Email">
-            <span>Email Me</span>
-        </a>
+            <span id="email-text">aoriki.contact@gmail.com</span>
+            <button class="send-email-btn" onclick="openEmail(event)">Send Email</button>
+        </div>
 
     </div>
 
     <a href="index.html" class="back-btn">← Back</a>
 
 </div>
+
+<script>
+function copyEmail() {
+    const email = document.getElementById("email-text").innerText;
+    navigator.clipboard.writeText(email).then(() => {
+        alert("Email copied to clipboard: " + email);
+    });
+}
+
+function openEmail(event) {
+    event.stopPropagation(); // prevent triggering copy
+    const email = document.getElementById("email-text").innerText;
+    window.location.href = `mailto:${email}`;
+}
+</script>
 
 </body>
 </html>
