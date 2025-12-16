@@ -7,131 +7,92 @@
 </head>
 <body>
 
-<h1>My Works</h1>
+<h1 class="page-title">ARCHIVE // WORKS</h1>
 
-<!-- FILTER -->
-<div class="filter-bar">
-    <label for="filter">Sort by:</label>
-    <select id="filter" onchange="applyFilter()">
-        <option value="newest">Newest → Oldest</option>
-        <option value="oldest">Oldest → Newest</option>
-    </select>
+<!-- FOLDER TABS -->
+<div class="folder-tabs">
+    <button class="folder-tab active" onclick="openTab('interactive')">
+        <img src="images/icon-game.png" alt="">
+        <span>Interactive</span>
+    </button>
+
+    <button class="folder-tab" onclick="openTab('static')">
+        <img src="images/icon-image.png" alt="">
+        <span>Static</span>
+    </button>
 </div>
 
-<!-- MAIN LAYOUT -->
-<div class="works-layout">
+<!-- CONTENT PANEL -->
+<div class="folder-panel">
 
-    <!-- LEFT: PROJECT LIST -->
-    <div id="project-list" class="project-list">
-
-        <div class="project-item" data-date="2025-01-12" onclick="openProject('p5')">
-            <img src="img/p5thumb.jpg" class="thumb">
-            <div class="info">
-                <strong>P5.js Sketch</strong>
-                <span class="date">2025</span>
-            </div>
-        </div>
-
-        <div class="project-item" data-date="2024-11-02" onclick="openProject('quieterrs')">
-            <img src="img/quieterrs-thumb.jpg" class="thumb">
-            <div class="info">
-                <strong>Quiet Errs</strong>
-                <span class="date">2024</span>
-            </div>
-        </div>
-
-        <div class="project-item" data-date="2024-05-19" onclick="openProject('itch')">
-            <img src="img/itchthumb.jpg" class="thumb">
-            <div class="info">
-                <strong>Itch.io Game</strong>
-                <span class="date">2024</span>
-            </div>
-        </div>
-
-        <div class="project-item" data-date="2023-08-01" onclick="openProject('site')">
-            <img src="img/sitethumb.jpg" class="thumb">
-            <div class="info">
-                <strong>Website Project</strong>
-                <span class="date">2023</span>
-            </div>
-        </div>
-
+    <!-- FILTER -->
+    <div class="filter-bar">
+        <label>Sort:</label>
+        <select onchange="sortItems(this.value)">
+            <option value="newest">Newest → Oldest</option>
+            <option value="oldest">Oldest → Newest</option>
+        </select>
     </div>
 
-    <!-- RIGHT: EMBED DISPLAY -->
-    <div id="project-container">
-        <p>Select a project.</p>
+    <!-- INTERACTIVE TAB -->
+    <div id="interactive" class="folder-content active">
+        <div class="grid">
+
+            <div class="work-item" data-date="2025-01-01">
+                <iframe src="https://example.com/game1"></iframe>
+            </div>
+
+            <div class="work-item" data-date="2024-10-10">
+                <iframe src="https://example.com/game2"></iframe>
+            </div>
+
+            <!-- MULTIPLE EMBEDS ARE FINE -->
+            <div class="work-item" data-date="2024-06-02">
+                <iframe src="https://example.com/game3"></iframe>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- STATIC TAB -->
+    <div id="static" class="folder-content">
+        <div class="grid">
+
+            <div class="work-item" data-date="2025-02-12">
+                <img src="images/art1.jpg">
+            </div>
+
+            <div class="work-item" data-date="2024-08-01">
+                <video autoplay muted loop>
+                    <source src="videos/anim1.mp4" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
     </div>
 
 </div>
-
-<a href="index.html">← Back to Scene</a>
 
 <script>
-// ---------- LOAD PROJECT ----------
-function openProject(id) {
-    const container = document.getElementById("project-container");
+function openTab(tabId) {
+    document.querySelectorAll('.folder-tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.folder-content').forEach(c => c.classList.remove('active'));
 
-    if (id === "quieterrs") {
-        container.innerHTML = `
-            <div class="embed-container">
-                <iframe 
-                    src="https://scratch.mit.edu/projects/1101838389/embed"
-                    allowtransparency="true"
-                    scrolling="no"
-                    allowfullscreen>
-                </iframe>
-            </div>
-
-            <div class="embed-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/ogaDnvd_2Ug"
-                    title="Quiet Errs Gameplay"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
-            </div>
-        `;
-        return;
-    }
-
-    const embeds = {
-        p5: `
-            <div class="embed-container">
-                <iframe src="https://editor.p5js.org/Aoriki/full/NQvpKe2Sn"></iframe>
-            </div>
-        `,
-        itch: `
-            <div class="embed-container">
-                <iframe src="https://itch.io/embed-upload/123456"></iframe>
-            </div>
-        `,
-        site: `
-            <div class="embed-container">
-                <iframe src="https://example.com"></iframe>
-            </div>
-        `
-    };
-
-    container.innerHTML = embeds[id] || "<p>Project not found.</p>";
+    document.querySelector(`[onclick="openTab('${tabId}')"]`).classList.add('active');
+    document.getElementById(tabId).classList.add('active');
 }
 
-// ---------- SORT PROJECTS ----------
-function applyFilter() {
-    const list = document.getElementById("project-list");
-    const items = Array.from(list.getElementsByClassName("project-item"));
-    const order = document.getElementById("filter").value;
-
-    items.sort((a, b) => {
-        const dateA = new Date(a.dataset.date);
-        const dateB = new Date(b.dataset.date);
-        return order === "newest" ? dateB - dateA : dateA - dateB;
+function sortItems(order) {
+    document.querySelectorAll('.folder-content.active .grid').forEach(grid => {
+        const items = Array.from(grid.children);
+        items.sort((a, b) => {
+            const d1 = new Date(a.dataset.date);
+            const d2 = new Date(b.dataset.date);
+            return order === 'newest' ? d2 - d1 : d1 - d2;
+        });
+        items.forEach(i => grid.appendChild(i));
     });
-
-    items.forEach(item => list.appendChild(item));
 }
-
-applyFilter();
 </script>
 
 </body>
