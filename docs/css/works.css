@@ -192,3 +192,28 @@ a:hover {
     background: #3399ff;
     border-radius: 4px;
 }
+/*BACK BUTTON*/
+a.back-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #07122b;
+    color: #66b3ff;
+    border: 2px solid #3399ff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: monospace;
+    font-weight: bold;
+    box-shadow: 0 0 10px #3399ff33;
+    transition: all 0.3s ease;
+    opacity: 0.7; /* slightly transparent */
+    z-index: 1000;
+}
+
+a.back-btn:hover {
+    background: #0f2a60;
+    color: #3399ff;
+    box-shadow: 0 0 15px #3399ff66;
+    opacity: 1; /* fully visible on hover */
+}
