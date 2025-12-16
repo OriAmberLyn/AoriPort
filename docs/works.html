@@ -7,136 +7,121 @@
 </head>
 <body>
 
-<h1>My Works</h1>
+<div class="page-wrapper">
 
-<!-- TOP TABS -->
-<div class="top-tabs">
-    <button class="tab-btn active" onclick="switchTab('interactive')">Interactive</button>
-    <button class="tab-btn" onclick="switchTab('static')">Static</button>
-</div>
+    <h1>My Works</h1>
 
-<!-- INTERACTIVE TAB CONTENT -->
-<div id="interactive" class="tab-content active">
-
-    <!-- FILTER -->
-    <div class="filter-bar">
-        <label for="filter">Sort by:</label>
-        <select id="filter" onchange="applyFilter()">
-            <option value="newest">Newest → Oldest</option>
-            <option value="oldest">Oldest → Newest</option>
-        </select>
+    <!-- TOP TABS -->
+    <div class="top-tabs">
+        <button class="tab-btn active" onclick="switchTab('interactive')">Interactive</button>
+        <button class="tab-btn" onclick="switchTab('static')">Static</button>
     </div>
 
-    <!-- MAIN LAYOUT -->
-    <div class="works-layout">
+    <!-- INTERACTIVE TAB -->
+    <div id="interactive" class="tab-content active">
 
-        <!-- LEFT: PROJECT LIST -->
-        <div id="project-list" class="project-list">
+        <!-- FILTER -->
+        <div class="filter-bar">
+            <label for="filter">Sort by:</label>
+            <select id="filter" onchange="applyFilter()">
+                <option value="newest">Newest → Oldest</option>
+                <option value="oldest">Oldest → Newest</option>
+            </select>
+        </div>
 
-            <div class="project-item" data-date="2025-01-12" onclick="openProject('p5')">
-                <img src="img/p5thumb.jpg" class="thumb">
-                <div class="info">
-                    <strong>P5.js Sketch</strong>
-                    <span class="date">2025</span>
+        <!-- MAIN LAYOUT -->
+        <div class="works-layout">
+
+            <!-- PROJECT LIST -->
+            <div id="project-list" class="project-list">
+                <div class="project-item" data-date="2025-01-12" onclick="openProject('p5')">
+                    <img src="img/p5thumb.jpg" class="thumb">
+                    <div class="info">
+                        <strong>P5.js Sketch</strong>
+                        <span class="date">2025</span>
+                    </div>
+                </div>
+
+                <div class="project-item" data-date="2024-11-02" onclick="openProject('quieterrs')">
+                    <img src="img/quieterrs-thumb.jpg" class="thumb">
+                    <div class="info">
+                        <strong>Quiet Errs</strong>
+                        <span class="date">2024</span>
+                    </div>
+                </div>
+
+                <div class="project-item" data-date="2024-05-19" onclick="openProject('itch')">
+                    <img src="img/itchthumb.jpg" class="thumb">
+                    <div class="info">
+                        <strong>Itch.io Game</strong>
+                        <span class="date">2024</span>
+                    </div>
+                </div>
+
+                <div class="project-item" data-date="2023-08-01" onclick="openProject('site')">
+                    <img src="img/sitethumb.jpg" class="thumb">
+                    <div class="info">
+                        <strong>Website Project</strong>
+                        <span class="date">2023</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="project-item" data-date="2024-11-02" onclick="openProject('quieterrs')">
-                <img src="img/quieterrs-thumb.jpg" class="thumb">
-                <div class="info">
-                    <strong>Quiet Errs</strong>
-                    <span class="date">2024</span>
-                </div>
-            </div>
-
-            <div class="project-item" data-date="2024-05-19" onclick="openProject('itch')">
-                <img src="img/itchthumb.jpg" class="thumb">
-                <div class="info">
-                    <strong>Itch.io Game</strong>
-                    <span class="date">2024</span>
-                </div>
-            </div>
-
-            <div class="project-item" data-date="2023-08-01" onclick="openProject('site')">
-                <img src="img/sitethumb.jpg" class="thumb">
-                <div class="info">
-                    <strong>Website Project</strong>
-                    <span class="date">2023</span>
-                </div>
+            <!-- EMBED DISPLAY -->
+            <div id="project-container">
+                <p>Select a project.</p>
             </div>
 
         </div>
-
-        <!-- RIGHT: EMBED DISPLAY -->
-        <div id="project-container">
-            <p>Select a project.</p>
-        </div>
-
     </div>
 
-</div>
-
-<!-- STATIC TAB CONTENT -->
-<div id="static" class="tab-content">
-    <div class="static-gallery">
-
-        <div class="gallery-item">
-            <img src="img/static1.jpg" alt="Static 1">
+    <!-- STATIC TAB -->
+    <div id="static" class="tab-content">
+        <div class="static-gallery">
+            <div class="gallery-item">
+                <img src="img/static1.jpg" alt="Static 1">
+            </div>
+            <div class="gallery-item">
+                <img src="img/static2.jpg" alt="Static 2">
+            </div>
+            <div class="gallery-item">
+                <video controls>
+                    <source src="video/animation1.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
-
-        <div class="gallery-item">
-            <img src="img/static2.jpg" alt="Static 2">
-        </div>
-
-        <div class="gallery-item">
-            <video controls>
-                <source src="video/animation1.mp4" type="video/mp4">
-            </video>
-        </div>
-
     </div>
-</div>
 
-<a href="index.html">← Back to Scene</a>
+    <a href="index.html">← Back to Scene</a>
+
+</div>
 
 <script>
-// ----- TAB SWITCHING -----
 function switchTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-    });
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
-
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelector(`.tab-btn[onclick="switchTab('${tabId}')"]`).classList.add('active');
 }
 
-// ----- EXISTING FUNCTIONS -----
 function openProject(id) {
     const container = document.getElementById("project-container");
-
     if (id === "quieterrs") {
         container.innerHTML = `
             <div class="embed-container">
-                <iframe src="https://scratch.mit.edu/projects/1101838389/embed"
-                    allowtransparency="true" scrolling="no" allowfullscreen></iframe>
+                <iframe src="https://scratch.mit.edu/projects/1101838389/embed" allowtransparency="true" scrolling="no" allowfullscreen></iframe>
             </div>
             <div class="embed-container">
-                <iframe src="https://www.youtube.com/embed/ogaDnvd_2Ug"
-                    title="Quiet Errs Gameplay" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/ogaDnvd_2Ug" title="Quiet Errs Gameplay" allowfullscreen></iframe>
             </div>
         `;
         return;
     }
-
     const embeds = {
         p5: `<div class="embed-container"><iframe src="https://editor.p5js.org/Aoriki/full/NQvpKe2Sn"></iframe></div>`,
         itch: `<div class="embed-container"><iframe src="https://itch.io/embed-upload/123456"></iframe></div>`,
         site: `<div class="embed-container"><iframe src="https://example.com"></iframe></div>`
     };
-
     container.innerHTML = embeds[id] || "<p>Project not found.</p>";
 }
 
@@ -144,16 +129,9 @@ function applyFilter() {
     const list = document.getElementById("project-list");
     const items = Array.from(list.getElementsByClassName("project-item"));
     const order = document.getElementById("filter").value;
-
-    items.sort((a, b) => {
-        const dateA = new Date(a.dataset.date);
-        const dateB = new Date(b.dataset.date);
-        return order === "newest" ? dateB - dateA : dateA - dateB;
-    });
-
-    items.forEach(item => list.appendChild(item));
+    items.sort((a,b)=> order==="newest"? new Date(b.dataset.date)-new Date(a.dataset.date): new Date(a.dataset.date)-new Date(b.dataset.date));
+    items.forEach(item=> list.appendChild(item));
 }
-
 applyFilter();
 </script>
 
